@@ -1,73 +1,79 @@
-# Welcome to your Lovable project
+# Correlation Divergence Detector
 
-## Project info
+Tracks correlation breakdowns between major asset pairs (equities, forex, commodities, crypto) using z-score divergence detection. Identifies regime shifts and mean-reversion opportunities through statistical analysis of 30-day rolling correlations with 252-day historical lookback.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Features
 
-## How can I edit this code?
+- **Real-time Anomaly Detection**: |z-score| > 2σ threshold triggering
+- **Multi-Asset Coverage**: SPX/USDJPY, Gold/Treasuries, BTC/NASDAQ, EUR/DXY, SPX/VIX, Crude/SPX
+- **Visual Analytics**: Time-series charts with anomaly highlighting, correlation matrices, divergence metrics
+- **Statistical Framework**: Rolling correlation calculation, z-score normalization, mean-reversion signaling
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Charts**: Recharts
+- **State**: React Hooks
+- **Build**: Vite
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Installation
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Methodology
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**Correlation Calculation**:
+- 30-day rolling Pearson correlation
+- Daily rebalanced windows
 
-**Use GitHub Codespaces**
+**Anomaly Detection**:
+```
+z = (ρ_current - μ_historical) / σ_historical
+Anomaly: |z| > 2
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Lookback Period**: 252 trading days (1 year)
 
-## What technologies are used for this project?
+## UI Components
 
-This project is built with:
+- `AlertPanel`: Active anomaly summary with z-scores
+- `CorrelationChart`: Time-series with μ reference line + anomaly regions
+- `CorrelationMatrix`: Current correlation snapshot
+- `StatsCard`: Aggregate metrics (avg z-score, max divergence)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Configuration
 
-## How can I deploy this project?
+Data generation parameters in `src/lib/correlationData.ts`:
+- `baseCorrelation`: Long-term mean
+- `volatility`: Daily standard deviation
+- `anomalyProbability`: Shock frequency
+- `lookback`: Historical window (252 days)
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Asset Pairs
 
-## Can I connect a custom domain to my Lovable project?
+| Pair | Symbol 1 | Symbol 2 | Base ρ |
+|------|----------|----------|--------|
+| SPX/USDJPY | ^GSPC | JPY=X | +0.45 |
+| SPX/Oil | ^GSPC | CL=F | +0.35 |
+| Gold/10Y | GC=F | ^TNX | -0.25 |
+| SPX/VIX | ^GSPC | ^VIX | -0.75 |
+| EUR/DXY | EURUSD=X | DX-Y.NYB | -0.85 |
+| BTC/NASDAQ | BTC-USD | ^IXIC | +0.55 |
 
-Yes, you can!
+## Key Metrics
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **Z-Score**: Standardized deviation from historical mean
+- **Anomaly Status**: Boolean flag for |z| > 2
+- **Historical μ**: 252-day average correlation
+- **Historical σ**: Standard deviation of correlation
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Use Cases
+
+1. **Risk Management**: Correlation breakdown detection
+2. **Pairs Trading**: Mean-reversion signal generation
+3. **Portfolio Hedging**: Dynamic correlation monitoring
+4. **Regime Detection**: Structural shift identification
