@@ -1,0 +1,173 @@
+﻿EY Techathon 6.0 — Problem 1: Pharmaceuticals
+The
+
+MOCK UP Möbius
+Pipeline
+
+Accelerating
+repurposing 
+Amplifying
+intelligence
+Auditing
+
+every insight
+MVP for Agentic AI drug repurposing, pilot-ready
+
+
+
+We are Team Axiom R&D — an interdisciplinary group combining AI engineering, biotech analysis, and data
+systems architecture. Our collective expertise spans GenAI pipelines, molecular biology validation, scalable
+backend design, and knowledge-graph engineering, enabling a technically rigorous yet domain-grounded
+solution.
+
+Sahil Vaijanath Varde — Software Ishayu Chakraborty — Domain
+Shrinjita Paul — Team Lead & Systems Architect Science & Biotech Analyst
+(AI & Cloud) Github Pharma and molecular-biology
+
+Leads GenAI and ML Full-stack and scalable-system expert validating mechanisms of
+pipeline development on specialist focused on resilient action and biological plausibility.
+AWS; co-created award- backend and intuitive UI design. Validates biological plausibility;
+winning, secure FinTech Runner-up, Citi Campus interfaces with pharma SMEs for
+and document-intelligence Challenge 2025. wet-lab alignment.
+solutions. Leads backend & UI integration;
+Runner-up, Citi Campus ensures infra scalability and API
+Challenge 2025. governance.
+Owns overall architecture, Monami Sen — Data Engineer
+model orchestration, and Sumedha Ghosh — AI Engineer & Analyst
+pilot execution Designs neural-network models Builds efficient data-ingestion
+
+and data-processing logic using pipelines and manages the
+Python and ML frameworks. knowledge graph driving
+Designs retrieval & agentic reasoning.
+classification models; manages Builds ingestion pipelines,
+validation metrics. maintains Neo4j KG and
+
+provenance logs.
+
+01#
+
+04# 02#
+
+05# 03#
+
+
+
+Drug repurposing today requires months of manual evidence
+collection across scattered sources — PubMed, ClinicalTrials.gov,
+and patent databases. Researchers lack a unified system that links
+molecular, clinical, and IP data with traceable provenance.
+
+ The
+Current gaps:
+
+Challenge:  > 80 % time spent on non-analytic search.
+ No audit trail → regulatory delays.
+
+Accelerating  Fragmented silos → missed multi-disease insights.
+
+Drug In current pharma R&D, compiling evidence for repurposing a single
+molecule averages 90 days (≈ 600 analyst hours) across PubMed,
+
+Repurposing ClinicalTrials.gov and USPTO.
+ Our goal: build a verifiable AI pipeline unifying molecular, clinical
+
+Decisions and patent data with audit-ready provenance, reducing
+hypothesis-to-summary time from 90 days → 10 minutes on a
+controlled test set.
+
+(Baseline from Nature Rev Drug Disc 2024 Fig 2; target from internal POC simulation
+n = 50 queries.)
+
+
+
+Our Edge:
+Transparent,
+Multi-Agent
+Repurposing
+Copilot Defined Metrics:
+
+ Provenance coverage = % of claims with ≥ 1 primary ID
+(PMID/NCT/Patent).
+ Recall gain = retrieved valid evidence / manual baseline (n = 30
+queries).
+
+Our copilot achieves ≈ 95 % provenance coverage and ≈ 10× recall gain
+on pilot data, delivering transparent, scalable, regulation-ready insight.
+
+
+
+Planned
+solution design
+Data Flow: Prompt → Master Agent
+(CrewAI) → Workers (ClinicalTrials,
+Patent, Literature, Compliance) →
+Neo4j KG + FAISS Index → Report
+Generator.
+Source Connectors: PubMed API
+(open), ClinicalTrials.gov REST,
+USPTO bulk data; paid feeds
+(IQVIA/Elsevier) access via mock
+stubs for Techathon POC.
+Provenance Model: { claim_id, R&D Strategist
+source_id, URL, timestamp, hash,
+confidence }.
+Governance: OPA policy layer
+enforcing data access control &
+export audit.
+Performance Benchmarks (POC):
+avg query latency = 92 s; KG nodes
+≈ 40 k; precision@5 = 0.81.
+
+
+
+Financial Value – 40–50 % cost cut; 12–18 mo faster
+market; $3–5 M savings Year 1 (± 20 % sensitivity).
+
+Business  De-Risked Pipeline – confidence-scored outputs; 30 %
+fewer failures; audit-ready evidence.
+
+Impact:  Strategic Positioning – first-mover in AI repurposing;
+scalable to safety/IP analytics.
+
+3 months → Assumptions: 15 analysts × 300 hrs × $110/hr ≈ $495 k / project; 6
+5 min projects ≈ $3 M savings — validated vs industry benchmarks 
+
+~99.9 %
+Key Performance Metrics (KPIs)
+
+faster
+50–100
+candidates /
+week.
+
+(All metrics derived from McKinsey BioPharma Outlook 2024 and industry benchmarks.)
+
+
+
+Risk Mitigation / Owner Acceptance Criteria
+
+Patent Agent FTO flag + legal review loop 100 % FTO check for top-
+Regulatory / IP (Lead: Shrinjita) 10 candidates
+
+Data Bias / Confidence > 0.8 threshold + manual
+Hallucination review (Ishayu) ≤ 15 % false positive rate
+
+Risk OPA governance + tokenized logs
+Security / Privacy (Monami) Zero PII exposure events
+
+Mitigation 99.5 % uptime under 100
+Scalability Async workers + K8s autoscaling (Sahil) q/day load
+
+& Future
+Scope:
+
+Pilot Plan
+12-Week Pilot Ask (Q1 2026) — Access to PubMed + ClinicalTrials licensed feeds, EY
+HealthTech mentor (2 h/wk), legal review (2 h/wk), compute quota 5 GPU h/day.
+ Deliverable: 200 audited molecule–disease reports + metrics vs manual baseline.
+ Success criteria: coverage ≥ 0.9, false-positive ≤ 0.15, time ≤ 10 min per report.
+
+Metrics 
+& 
+
+Validation

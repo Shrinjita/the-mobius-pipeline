@@ -26,13 +26,16 @@ export function EvidenceGraph({ onViewProvenance }: EvidenceGraphProps) {
   });
   const [confidenceThreshold, setConfidenceThreshold] = useState([50]);
   const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
   const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({});
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   // Generate node positions in a radial layout
   useEffect(() => {
-    const centerX = 350;
-    const centerY = 250;
+    const centerX = 300;
+    const centerY = 275;
     const newPositions: Record<string, { x: number; y: number }> = {};
 
     // Center node (Metformin)
@@ -175,17 +178,25 @@ export function EvidenceGraph({ onViewProvenance }: EvidenceGraphProps) {
             </div>
 
             {/* Zoom Controls */}
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="icon-sm" onClick={() => setZoom(z => Math.max(0.5, z - 0.1))}>
-                <ZoomOut className="h-4 w-4" />
-              </Button>
-              <span className="text-sm flex-1 text-center">{Math.round(zoom * 100)}%</span>
-              <Button variant="outline" size="icon-sm" onClick={() => setZoom(z => Math.min(2, z + 0.1))}>
-                <ZoomIn className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon-sm" onClick={() => setZoom(1)}>
-                <Maximize2 className="h-4 w-4" />
-              </Button>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="icon-sm" onClick={() => setZoom(z => Math.max(0.3, z - 0.1))}>
+                  <ZoomOut className="h-4 w-4" />
+                </Button>
+                <span className="text-sm flex-1 text-center">{Math.round(zoom * 100)}%</span>
+                <Button variant="outline" size="icon-sm" onClick={() => setZoom(z => Math.min(3, z + 0.1))}>
+                  <ZoomIn className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex gap-1">
+                <Button variant="outline" size="sm" className="flex-1" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}>
+                  <Maximize2 className="h-3 w-3 mr-1" />
+                  Reset
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1" onClick={() => setZoom(0.6)}>
+                  Fit
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -200,8 +211,25 @@ export function EvidenceGraph({ onViewProvenance }: EvidenceGraphProps) {
         <Card className="h-[550px] overflow-hidden">
           <div 
             ref={containerRef}
-            className="w-full h-full relative bg-gradient-surface"
-            style={{ transform: `scale(${zoom})`, transformOrigin: 'center center' }}
+            className="w-full h-full relative bg-gradient-surface cursor-grab active:cursor-grabbing"
+            style={{ 
+              transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, 
+              transformOrigin: 'center center' 
+            }}
+            onMouseDown={(e) => {
+              setIsDragging(true);
+              setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
+            }}
+            onMouseMove={(e) => {
+              if (isDragging) {
+                setPan({
+                  x: e.clientX - dragStart.x,
+                  y: e.clientY - dragStart.y
+                });
+              }
+            }}
+            onMouseUp={() => setIsDragging(false)}
+            onMouseLeave={() => setIsDragging(false)}
           >
             {/* SVG for edges */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">

@@ -1,0 +1,132 @@
+# **Product Requirements Document (PRD): The Möbius Dashboard**
+*Version 1.0 | For EY Techathon 6.0 Submission*
+
+---
+
+## **1. Objective**
+To enable a Pharma R&D Strategist to transform a vague hypothesis into an **audited, investment-ready memo in under 10 minutes**, by automating evidence synthesis across molecular, clinical, and IP data sources while providing full traceability and regulatory-grade provenance.
+
+## **2. User Stories**
+1. **As an R&D Strategist**, I want to **input a molecule and target disease** to receive a unified, synthesized view of all relevant evidence, so I can quickly assess repurposing potential.
+2. **As an R&D Strategist**, I want to **visually explore connections** between drugs, diseases, trials, and patents in an interactive graph, so I can discover non-obvious relationships.
+3. **As an R&D Strategist**, I want to **click any claim** and immediately see its source (PMID, NCT, Patent#), snippet, and confidence score, so I can verify evidence credibility.
+4. **As an R&D Strategist**, I want to **watch a live feed of AI agents** working on my query, so I can trust the process and understand how conclusions are reached.
+5. **As an R&D Strategist**, I want to **generate and customize an investment memo** with one click, including executive summary, evidence tables, and risk assessment, so I can present findings to stakeholders.
+6. **As an R&D Strategist**, I want to **export a fully audited report** with cryptographic hashes for each claim, so I can meet regulatory compliance requirements.
+
+## **3. Core Modules & Specifications**
+
+### **a. Landing / Query Module**
+- **Primary Input Fields:**
+  - **Molecule:** Text input with autocomplete using PubChem API. Supports drug names, synonyms, SMILES, or internal compound IDs.
+  - **Target Disease:** Text input with MeSH/OMIM autocomplete. Supports disease names, phenotypes, or pathway terms.
+- **Advanced Filters (Collapsible Section):**
+  - **Clinical Trial Phase:** Checkboxes for Phase I-IV, Preclinical.
+  - **Patent Jurisdiction:** Dropdown (USPTO, EP, WO, etc.).
+  - **Publication Date Range:** Slider (Last 1-5 years).
+  - **Evidence Confidence Threshold:** Slider (0-100%).
+- **Query History:** Recent queries listed below input for quick re-execution.
+
+### **b. Agent Activity Feed (Live Demo Hero)**
+- **Central Console Panel** with real-time (simulated) log updates:
+  - `[MASTER AGENT] Query received: "Repurposing potential for Metformin in Oncology"`
+  - `[MASTER AGENT] Decomposing task into sub-queries...`
+  - `[PATENT AGENT] Querying USPTO for "Metformin AND cancer"... ✅ 14 patents found`
+  - `[CLINICAL AGENT] Searching ClinicalTrials.gov... ✅ 23 trials found`
+  - `[LITERATURE AGENT] Scanning PubMed via semantic search... ✅ 189 papers found`
+  - `[BIOACTIVITY AGENT] Fetching assay data from ChEMBL... ✅ 42 assays found`
+  - `[KG BUILDER] Synthesizing graph with 1,402 nodes...`
+  - `[REPORT AGENT] Generating investment memo draft...`
+- **Visual Indicators:** Agent icons that "light up" when active, progress bars for each agent type, estimated time remaining.
+- **Pause/Resume Controls:** For demo purposes, allow pausing to explain each step.
+
+### **c. Unified Evidence Graph**
+- **Interactive Force-Directed Graph** powered by Neo4j/Cytoscape.js:
+  - **Node Types & Colors:**
+    - Molecule (Blue)
+    - Disease (Red)
+    - Gene/Pathway (Green)
+    - Clinical Trial (Orange)
+    - Patent (Purple)
+    - Publication (Teal)
+  - **Edge Properties:**
+    - Type: `mechanism_of_action`, `clinical_trial`, `patent_claim`, `literature_association`
+    - Strength: Line thickness (1-5px) based on confidence score
+    - Recency: Line color gradient (dark = recent, light = older)
+- **Graph Controls:**
+  - Zoom/Pan
+  - Node/Edge type toggles
+  - Cluster by evidence type or disease area
+  - Search within graph
+- **Click Interaction:** Clicking a node/edge highlights connections and populates the Provenance Panel.
+
+### **d. Provenance Panel**
+- **Contextual Sidebar** that updates on graph selection:
+  - **Claim ID:** `Mobius-C-2025-{hash}`
+  - **Source:** 
+    - Type: Patent/Publication/Trial
+    - ID: `US2023123456A1` / `PMID: 33811245` / `NCT04567890`
+    - Link: Direct URL to source
+  - **Snippet:** Key excerpt from source with highlighting.
+  - **Confidence Score:** 0-100% with color coding (Green: >80%, Yellow: 50-80%, Red: <50%).
+  - **Verification Hash:** `SHA-256: a1b2...c3d4` with copy button.
+  - **Extraction Timestamp:** `2025-10-26 14:30:22 UTC`
+- **Evidence Chain View:** Mini-graph showing how this claim connects to other entities.
+
+### **e. Report/Memo Builder**
+- **Live-Preview Panel** with three views:
+  1. **Executive Summary:** Auto-generated narrative of findings.
+  2. **Evidence Atlas:** Visual summary of graph with key clusters.
+  3. **Risk Matrix:** 2x2 grid of Biological Plausibility vs. Commercial Opportunity.
+- **Editable Sections:** User can modify text, add notes, highlight key points.
+- **Evidence Toggles:** Checkboxes to include/exclude specific evidence categories.
+- **Export Options:**
+  - **Regulatory PDF:** Includes all provenance data, hashes, and audit trail.
+  - **Stakeholder PPT:** Summary slides with charts.
+  - **JSON Full Dump:** Complete data for internal systems.
+
+## **4. Mockup Fidelity & Implementation**
+- **Tool:** **Lovable** for high-fidelity, interactive prototyping.
+- **Data:** Placeholder data simulating real API responses.
+- **Interactivity:**
+  - Clickable buttons, toggles, sliders.
+  - Animated agent activity feed.
+  - Interactive graph with hover/click effects.
+  - Live-updating report preview.
+
+## **5. Key User Flows for Demo**
+**Flow 1: Quick Hypothesis Validation (2 min)**
+1. Input: `Metformin` → `Breast Cancer`
+2. Show Agent Activity Feed executing.
+3. Show Evidence Graph populating with connections.
+4. Click a strong `mechanism_of_action` edge to show provenance.
+5. Generate and show first-page of investment memo.
+
+**Flow 2: Deep Dive & Audit Trail (3 min)**
+1. Start with existing query (`Metformin → Oncology`).
+2. Use graph controls to filter to only `Patent` nodes.
+3. Click a key patent node to show full provenance.
+4. Add a manual annotation: "Competitor IP - High Risk."
+5. Export Regulatory PDF and show hash verification section.
+
+**Flow 3: Comparative Analysis (3 min)**
+1. Input two molecules: `Metformin` and `Aspirin`.
+2. Show side-by-side evidence graphs.
+3. Use report builder to create comparative memo.
+4. Highlight how Möbius identifies unique opportunities for each.
+
+## **6. Success Metrics for Demo**
+- **Time to First Insight:** <30 seconds from query submission.
+- **Provenance Accessibility:** 1-click access to source for any claim.
+- **Memo Generation Time:** <15 seconds.
+- **User Engagement:** At least 5 interactive actions per demo flow.
+
+## **7. Technical Dependencies for POC**
+- **Frontend:** React with Cytoscape.js for graphs, Tailwind CSS for UI.
+- **Mock Data:** JSON files simulating API responses from PubMed, ClinicalTrials.gov, USPTO.
+- **Agent Simulation:** JavaScript timers and state management to simulate parallel processing.
+- **Export Functionality:** jsPDF for PDF generation, html-to-image for graph exports.
+
+---
+
+**Next Step:** This PRD provides the blueprint for creating a compelling, realistic mockup in Lovable that demonstrates both the **user experience** and **technical sophistication** of The Möbius Pipeline, directly addressing the judging criteria of Solution Design, Uniqueness, and End-user Impact.

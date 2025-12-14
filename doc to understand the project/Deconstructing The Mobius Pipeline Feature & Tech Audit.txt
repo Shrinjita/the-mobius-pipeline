@@ -1,0 +1,98 @@
+Based on the provided PDF, here is a detailed extraction and analysis of "The Mobius Pipeline" features, components, and architecture, organized into the requested categories and table.
+
+---
+
+### **1. Core AI/Agent Architecture**
+
+**Stated Features & Components:**
+- **Master Agent:** Orchestrates the workflow, decomposes queries, and collates evidence.
+- **Worker Agents:** Specialized agents for specific tasks (ClinicalTrials, Patent, Literature, Compliance, Bioactivity).
+- **Agentic AI Workflow:** A defined, sequential process from query to report.
+- **CrewAI:** Implied framework for multi-agent coordination (mentioned in data flow).
+- **Parallel Execution:** Agents work in parallel to speed up evidence gathering.
+- **AI Orchestration Layer:** Manages query relationships, semantic search, and synthesis.
+
+**User Need Addressed:**
+- **Need:** Researchers spend >80% of time on non-analytic search across fragmented sources (PubMed, ClinicalTrials.gov, USPTO).
+- **Solution:** Automates the manual, time-consuming evidence synthesis process by delegating tasks to specialized AI agents.
+
+**Innovative Leap Over Simple PubMed Search:**
+- Goes beyond keyword search by *understanding and decomposing* a complex business question (e.g., "Repurpose Metformin for Oncology") into sub-tasks (find trials, patents, MoA papers), executes them in parallel, and synthesizes the results. A PubMed search is a single, passive query; this is an active, intelligent research assistant.
+
+---
+
+### **2. Data Layer**
+
+**Stated Features & Components:**
+- **Neo4j Knowledge Graph (KG):** Stores and connects entities (molecules, diseases, trials, patents, genes).
+- **FAISS Vector Store:** Enables semantic search for literature and data.
+- **Source Connectors:** APIs for PubMed (open), ClinicalTrials.gov REST, USPTO bulk data.
+- **Paid Feeds (Mocked):** IQVIA/Elsevier data accessed via stubs for the POC.
+- **Data Ingestion Pipelines:** Built and managed by the data engineer.
+
+**User Need Addressed:**
+- **Need:** Data exists in silos—molecular data, clinical trials, and IP are not connected, leading to missed insights.
+- **Solution:** Creates a unified, queryable knowledge base that links all relevant data types, enabling cross-domain discovery (e.g., connecting a patent to a clinical trial to a molecular mechanism).
+
+**Innovative Leap Over Simple PubMed Search:**
+- PubMed is a single, flat corpus of literature. Mobius integrates *multi-modal data* (literature + clinical trials + patents + bioactivity data) into a connected graph, allowing for relationship-based reasoning (e.g., "What diseases share this mechanism of action?").
+
+---
+
+### **3. Output & Governance**
+
+**Stated Features & Components:**
+- **Report Generator:** Formats final results into an investment memo for executives.
+- **Provenance Model:** A structured schema `{ claim_id, source_id, URL, timestamp, hash, confidence }` attached to every output claim.
+- **OPA (Open Policy Agent) Governance Layer:** Enforces data access control and export audit policies.
+- **Audit-Ready Evidence:** The entire process is designed to produce outputs that can withstand regulatory scrutiny.
+- **Confidence-Scored Outputs:** Each claim or piece of evidence has an associated confidence score (0-100%).
+
+**User Need Addressed:**
+- **Need:** Lack of audit trail causes regulatory delays and makes it hard to verify claims.
+- **Solution:** Provides traceability for every claim back to its primary source (PMID, NCT ID, Patent #), with cryptographic hashes for integrity, building trust and speeding up regulatory review.
+
+**Innovative Leap Over Simple PubMed Search:**
+- A PubMed search result list has no built-in audit trail, confidence scoring, or regulatory compliance framework. Mobius bakes provenance and governance into the core of its output, transforming search results into *actionable, defensible business intelligence*.
+
+---
+
+### **4. Claimed Metrics & KPIs**
+
+**Stated Metrics:**
+- **Provenance Coverage:** % of claims with ≥1 primary source ID attached. **POC: 94%** (vs. 41% manual baseline).
+- **Recall Gain:** Retrieved valid evidence / manual baseline. **POC: ~10x gain** (Recall: 0.74 vs. 0.07 baseline).
+- **Precision@5:** **POC: 0.81**.
+- **Avg Query Latency:** **POC: 92 seconds**.
+- **Time Reduction:** Target: **90 days → <10 minutes**.
+- **Cost Reduction:** Target: **$50k-$100k → $5k-$10k** per candidate analysis.
+- **Pipeline Throughput:** Target: **0.1 → 10-20 candidates/week**.
+
+**User Need Addressed:**
+- **Need:** Decision-making is slow, expensive, and qualitative.
+- **Solution:** Provides quantitative, dramatic improvements in speed, cost, and output volume, translating directly to ROI and competitive advantage.
+
+**Innovative Leap:**
+- Moves the conversation from "Did you find some papers?" to measurable business metrics: **"We increased evidence retrieval by 10x and cut analysis time by 99.9% with 94% source verifiability."**
+
+---
+
+### **Feature Mapping Table**
+
+| Feature / Component          | User Pain Point Solved                          | Underlying Technology / Innovation Leap                                                                 |
+| :--------------------------- | :---------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| **Master & Worker Agents**   | Manual, serial evidence collection across sources. | **CrewAI/Multi-agent Orchestration.** Automates and parallelizes the research workflow.                 |
+| **Neo4j Knowledge Graph**    | Data silos prevent multi-disease insight discovery. | **Graph Database.** Connects molecules, diseases, trials, patents for relationship-based reasoning.     |
+| **FAISS Vector Store**       | Keyword search misses semantically related concepts. | **Semantic Search.** Finds relevant literature/assays based on meaning, not just keywords.              |
+| **Unified Source Connectors**| Logging into and querying multiple platforms manually. | **API Integration Layer.** Single-point access to PubMed, ClinicalTrials.gov, USPTO.                    |
+| **Provenance Model**         | No audit trail for claims → regulatory risk.      | **Structured Provenance Schema.** Links every claim to a verifiable source with a hash for integrity.   |
+| **OPA Governance Layer**     | Lack of control over data access and export.      | **Policy-as-Code.** Ensures compliance and security are programmable and auditable.                     |
+| **Report Generator**         | Manual synthesis of findings into business documents. | **Automated Memo Generation.** Transforms raw evidence into a stakeholder-ready investment memo.        |
+| **Confidence Scoring**       | Subjective, qualitative assessment of evidence.    | **Quantified Confidence (0-100%).** Provides a clear, metrics-driven risk/quality indicator.            |
+| **Parallel Execution**       | Slow, sequential research process.                | **Async Agent Workers.** Dramatically reduces end-to-end query time.                                    |
+| **Pilot Metrics (94% Cov.)** | Inability to measure or trust evidence quality.   | **Quantifiable KPIs.** Establishes a performance benchmark for accuracy and verifiability.              |
+
+---
+
+### **Summary of Core Innovation:**
+The Mobius Pipeline is not a search engine; it's an **automated, verifiable research and decision-support system**. Its innovative leap is the **integration of agentic AI for task execution with a provenance-centric, graph-based knowledge layer**, all geared towards producing **audit-ready business intelligence**. This directly attacks the pharma industry's core bottlenecks: **time, cost, and regulatory compliance.**

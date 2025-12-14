@@ -1,0 +1,105 @@
+# **User Persona: Pharma R&D Strategist (Drug Repurposing Focus)**
+
+**Name:** Dr. Aris Thakur  
+**Title:** Director, R&D Strategy & Portfolio Innovation  
+**Organization:** Mid-sized biopharma (Therapeutic focus: Immunology & Oncology)  
+**Location:** Boston, MA / Hybrid (Lab, Home Office, HQ)
+
+---
+
+### **Background & Psychographics**
+*   **Education:** PhD in Molecular Biology, MBA (Kellogg). Bridge between deep science and business.
+*   **Experience:** 15 years in industry. Started as a bench scientist, moved to project leadership, now in cross-functional strategy. Has lived through late-stage clinical failures; deeply motivated to de-risk and accelerate.
+*   **Mindset:** "Evidence is everything, but time is the enemy." Pragmatic and curious. Trusts data but is skeptical of black-box algorithms. Needs to build a compelling, defensible narrative for internal stakeholders (CSO, CFO, IP counsel) and external partners.
+*   **Key Relationships:** Manages a small team of associates, collaborates with heads of Clinical Development, Business Development, IP, and Informatics.
+
+---
+
+### **Core Goals & Objectives**
+1.  **Accelerate Discovery:** Identify 3-5 high-probability, novel indications for a shelved Phase II oncology asset within 8 weeks.
+2.  **De-risk Decisions:** Minimize blind spots by systematically aggregating and weighing evidence from disparate sources before committing to a costly preclinical/clinical plan.
+3.  **Secure Defensible IP:** Identify "white space" for new method-of-use patents; ensure freedom-to-operate by understanding competitor activity.
+4.  **Justify Resource Allocation:** Build a persuasive, data-driven investment memo to secure funding for a new repurposing program.
+5.  **Maximize Portfolio Value:** Unlock value from dormant assets or find new lifecycle extensions for nearing-patent-expiry drugs.
+
+---
+
+### **Frustrations & Pain Points**
+*   **Data Silos:** "My evidence is trapped in 10 different places." Literature (PubMed), internal bioassay data, clinical trial registries (ClinicalTrials.gov), patent databases (USPTO, Espacenet), and internal project notes are disconnected.
+*   **Manual, Repetitive Trawling:** "I spend 40% of my week being a glorified search engine." Manually chasing citation trails, linking a patent to a clinical trial to a published paper is slow and error-prone.
+*   **No Unified Audit Trail:** "I can't retrace my steps or prove how I reached a conclusion." The lineage from a primary source to a strategic recommendation is lost in emails, spreadsheets, and memory.
+*   **Information Overload, Not Synthesis:** Gets thousands of search results but lacks tools to synthesize them into a coherent "story" of biological plausibility and commercial opportunity.
+*   **Static, Dead-End Reports:** Most internal dashboards are read-only. Can't easily pivot, drill down, or ask a follow-up question without starting over.
+
+---
+
+### **Daily Tools & Environment**
+*   **Primary:** VPN-connected laptop, dual monitors.
+*   **Search & Discovery:** PubMed, Google Scholar, Cortellis, Citeline, PatSnap, GeneCards, OMIM.
+*   **Analysis & Viz:** Spotfire (internally mandated), GraphPad Prism for stats, PowerPoint for storytelling.
+*   **Collaboration:** Teams, Slack, SharePoint, email (heavy).
+*   **Core Workflow:** Searches -> Copies/Pastes/Exports to Excel -> Manually codes/links data -> Builds slides.
+
+---
+
+# **Proposed Dashboard: "Aether" – Drug Repurposing Intelligence Platform**
+
+*Inspired by the connectivity of GeneOntology browsers, the clarity of clinical trial dashboards (e.g., Trialtrove), and the interactivity/pipelining of modern SaaS analytics (Looker, Tableau).*
+
+---
+
+## **Module 1: Query Input & Control Panel**
+**How they start:** Flexible, multi-modal entry points for the strategist's varying starting points.
+*   **Molecule-Centric Search:** Input (or draw) a small molecule, biologic name, or internal compound ID. System auto-fetches synonyms, SMILES notation, known targets.
+*   **Disease/Phenotype Search:** Input a disease (MeSH terms, OMIM ID, HPO terms). Can specify "Find molecules with mechanistic link to [disease] but no registered trials for it."
+*   **Pathway/Mechanism Search:** Input a pathway (KEGG, Reactome), gene list, or protein target. "Show me all drugs modulating the IL-23 pathway and their approved/experimental indications."
+*   **"Seed List" Upload:** Drag & drop a CSV of 20 internal compound IDs to screen simultaneously.
+*   **Natural Language Query Bar:** "Find assets with safety data in rheumatoid arthritis that have been tested in any dermatological condition."
+
+---
+
+## **Module 2: Evidence Synthesis View (The "Central Canvas")**
+**Presentation:** A dynamic, linked **graph database visualization** as the central workspace, flanked by contextual side panels.
+*   **Central Force-Directed Graph:** Nodes = Molecules, Diseases, Genes, Pathways, Adverse Events. Edges = Evidence Types (clinical trial phase, patent claim, literature association, internal assay result). Color/weight of edges indicates strength/recency of evidence.
+*   **Interactive Filter Panels (Left Sidebar):**
+    *   **Evidence Source Toggles:** Patents, Trials (Phase I-IV), Publications (Pre-clinical/Clinical), Internal Data, Competitor News.
+    *   **Evidence Strength Sliders:** Filter by p-value, trial size, patent filing date, journal impact.
+    *   **Temporal Filter:** "Show evidence from last 18 months only."
+*   **Evidence Detail Panels (Right Sidebar):** Clicking any node or edge populates this panel with aggregated, ranked evidence.
+    *   **Unified Evidence Feed:** Chronologically lists all related items (e.g., a 2023 patent, a 2022 Phase II trial, a 2021 review article) with snippets and direct links.
+    *   **"Side-by-Side Evidence Compare":** Select two pieces of evidence (e.g., a patent claim and a conflicting trial result) to view them in a synchronized panel for direct comparison.
+
+---
+
+## **Module 3: Provenance & Audit Trail Visualizer**
+**The "Source Chain" Display:** Embedded throughout but with a dedicated "Audit View."
+*   **Clickable Evidence IDs:** Every claim/association in the system has a unique ID (e.g., `AETH-EV-<hash>`). Clicking it shows its provenance.
+*   **Visual Lineage Graph:** For a key conclusion (e.g., "Drug X is promising for Disease Y"), a mini, left-to-right DAG (Directed Acyclic Graph) shows:
+    *   **Origin Nodes:** Source documents (Patent US2023XXXXXX, PMID: 12345678, Trial NCT04567890).
+    *   **Processing Nodes:** NLP extraction step, AI relationship inference (with confidence score: 92%), manual curator tag (by `@aristhakur` on 10/26/23).
+    *   **Conclusion Node:** The synthesized claim.
+*   **Confidence Score Badges:** Every edge/claim has a composite score (0-100) based on source credibility, study design, recency, and corroboration. Visually encoded as color intensity and line thickness.
+*   **Exportable Audit Log:** One-click download of the complete decision trail for a specific hypothesis in a machine-readable format (JSON) for regulatory or IP purposes.
+
+---
+
+## **Module 4: Business/Impact Summarizer ("Investment Memo Generator")**
+**Dynamic Report Builder** that pulls directly from the evidence graph.
+*   **Executive Summary Auto-Draft:** AI-generated one-pager summarizing the biological rationale, competitive landscape, key evidence strength, and major risks.
+*   **Interactive "De-Risking" Heatmap:** A 2x2 matrix (Commercial Opportunity vs. Biological Plausibility) plotting potential indications. Clicking a quadrant drills down into the evidence driving that placement.
+*   **Financial Projection Module (Input-Based):** Allows the user to input key assumptions (addressable patient population, pricing, probability of success per phase). The system auto-calculates NPV, peak sales, and ROI, visibly linking the PoS assumptions back to the underlying evidence strength scores.
+*   **IP Landscape Snapshot:** Automatically highlights key expiring patents, white-space opportunities for new MoU patents, and potential freedom-to-operate risks based on competitor patent filings.
+*   **"One-Click Pitch Deck":** Generates a skeleton PowerPoint with key graphs, evidence tables, and data citations already formatted and linked.
+
+---
+
+## **Module 5: System Status & Agent Activity Monitor (Demo Power Mode)**
+**A live "Mission Control" view** to build trust and showcase platform intelligence.
+*   **Active Agent Tiles:** Shows real-time (or simulated near-real-time) status of background AI/NLP "agents":
+    *   `PubMed_Crawler`: "Scanning 1,247 new abstracts for mentions of [Target CDK2]."
+    *   `Trial_Matcher`: "Comparing trial eligibility criteria for NCTxxxxxx with drug safety profile."
+    *   `Patent_Family_Builder`: "Updating family tree for WO2023xxxxxx."
+*   **Activity Stream:** A live log of system discoveries. *"13:45: High-confidence link identified between [Your Compound Z] and [Disease D] via shared mechanism [Pathway P]. 3 corroborating sources found."*
+*   **User Collaboration Pulse:** (Optional) Shows anonymized activity of other teams in the platform (e.g., "Oncology Team saved 3 new indications to shared workspace"), fostering cross-functional discovery.
+
+This dashboard transforms the strategist from a **data gatherer** into a **hypothesis commander**, providing a unified, auditable, and actionable environment to navigate the complex landscape of drug repurposing.
