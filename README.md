@@ -1,8 +1,5 @@
 # <img src="./public/favicon.svg" width="50" height="50"> **Möbius Pipeline – AI-Powered Drug Repurposing Platform**
 ### *EY Techathon 6.0 – Pharma Track*
-
-## **Executive Summary**
-
 **Möbius Pipeline** is a **cyber-physical AI engine** designed to accelerate drug repurposing from **6+ years to 10 minutes**, while ensuring **full regulatory compliance** and **transparent provenance tracking**. It leverages **multi-agent AI orchestration** to synthesize evidence from literature, trials, patents, safety, and bioactivity data into **audit-ready investment memos** with **94% provenance coverage**.
 
 ---
@@ -139,10 +136,6 @@ A **human-in-the-loop AI copilot** that:
 - **Scalable, cloud-native stack**
 - **Clear ROI: 10–20× cost reduction**
 - **Pilot-ready with industry interest**
-
----
-
-*“Accelerating repurposing. Amplifying intelligence. Auditing every insight.”* 
 
 ---
 **Built with ❤️ by Team Axiom R&D for EY Techathon 6.0**
