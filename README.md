@@ -1,7 +1,5 @@
-# <img src="./public/favicon.svg" width="50" height="50"> **Möbius Pipeline – AI-Powered Drug Repurposing Platform**  
-## *EY Techathon 6.0 – Pharma Track*
-
----
+# <img src="./public/favicon.svg" width="50" height="50"> **Möbius Pipeline – AI-Powered Drug Repurposing Platform**
+### *EY Techathon 6.0 – Pharma Track*
 
 ## **Executive Summary**
 
